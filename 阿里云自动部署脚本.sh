@@ -9,7 +9,7 @@ echo "PhoneClone后端服务自动部署脚本"
 echo "=========================================="
 
 # 配置变量（根据实际情况修改）
-GITHUB_REPO="https://github.com/your-username/phoneclone.git"
+GITHUB_REPO="git@github.com:huiyiyouck/PhoneClone.git"
 APP_DIR="/opt/phoneclone"
 BRANCH="main"
 
@@ -45,14 +45,29 @@ update_code() {
     echo -e "${YELLOW}更新代码...${NC}"
     
     if [ -d "$APP_DIR" ]; then
-        echo "目录已存在，拉取最新代码..."
         cd $APP_DIR
-        git fetch origin
-        git reset --hard origin/$BRANCH
-        git pull origin $BRANCH
+        # 检查是否是git仓库
+        if [ -d ".git" ]; then
+            echo "目录已存在，拉取最新代码..."
+            git fetch origin
+            git reset --hard origin/$BRANCH
+            git pull origin $BRANCH
+        else
+            echo -e "${YELLOW}目录存在但不是git仓库，重新克隆...${NC}"
+            cd ..
+            # 备份现有目录
+            if [ -d "$APP_DIR" ]; then
+                BACKUP_DIR="${APP_DIR}_backup_$(date +%Y%m%d_%H%M%S)"
+                echo "备份现有目录到: $BACKUP_DIR"
+                mv $APP_DIR $BACKUP_DIR
+            fi
+            # 重新克隆
+            git clone -b $BRANCH $GITHUB_REPO $APP_DIR
+            cd $APP_DIR
+        fi
     else
         echo "首次克隆代码..."
-        mkdir -p $APP_DIR
+        mkdir -p $(dirname $APP_DIR)
         git clone -b $BRANCH $GITHUB_REPO $APP_DIR
         cd $APP_DIR
     fi
