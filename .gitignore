@@ -31,9 +31,9 @@ build/
 # Backend
 backend/build/
 backend/.gradle/
-backend/gradle/
-backend/gradlew
-backend/gradlew.bat
+# 保留gradlew和wrapper，因为部署需要
+# backend/gradlew
+# backend/gradlew.bat
 backend/*.jar
 !backend/gradle/wrapper/gradle-wrapper.jar
 
