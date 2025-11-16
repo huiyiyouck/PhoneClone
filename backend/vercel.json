@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "build/libs/phoneclone-backend-1.0.0.jar",
+      "use": "@vercel/java"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/build/libs/phoneclone-backend-1.0.0.jar"
+    }
+  ],
+  "env": {
+    "SPRING_PROFILES_ACTIVE": "production"
+  }
+}
+

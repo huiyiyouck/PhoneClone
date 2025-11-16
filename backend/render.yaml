@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: phoneclone-backend
+    env: java
+    rootDir: backend
+    buildCommand: ./gradlew build -x test
+    startCommand: java -jar build/libs/phoneclone-backend-1.0.0.jar
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: production
+      - key: PORT
+        value: 8080
+      - key: SPRING_DATASOURCE_URL
+        sync: false
+      - key: DB_USERNAME
+        sync: false
+      - key: DB_PASSWORD
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+

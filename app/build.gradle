@@ -1,0 +1,74 @@
+plugins {
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.hilt)
+    alias(libs.plugins.kotlin.kapt)
+}
+
+android {
+    namespace 'com.phoneclone'
+    compileSdk 36
+
+    defaultConfig {
+        applicationId "com.phoneclone"
+        minSdk 29
+        targetSdk 36
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_21
+        targetCompatibility JavaVersion.VERSION_21
+    }
+}
+
+dependencies {
+    // 基础UI组件
+    implementation libs.appcompat
+    implementation libs.material
+    implementation libs.activity
+    implementation libs.constraintlayout
+    
+    // MVVM架构组件
+    implementation libs.lifecycle.viewmodel
+    implementation libs.lifecycle.livedata
+    implementation libs.lifecycle.runtime
+    
+    // Room数据库
+    implementation libs.room.runtime
+    kapt libs.room.compiler
+    
+    // 网络库
+    implementation libs.retrofit
+    implementation libs.retrofit.gson
+    implementation libs.okhttp
+    implementation libs.okhttp.logging
+    
+    // 依赖注入
+    implementation libs.hilt.android
+    kapt libs.hilt.compiler
+    kapt libs.hilt.androidx.compiler
+    
+    // Navigation导航
+    implementation libs.navigation.fragment
+    implementation libs.navigation.ui
+    
+    // Gson
+    implementation libs.gson
+    
+    // Glide图片加载
+    implementation libs.glide
+    
+    // 测试
+    testImplementation libs.junit
+    androidTestImplementation libs.ext.junit
+    androidTestImplementation libs.espresso.core
+}

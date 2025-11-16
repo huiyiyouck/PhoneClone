@@ -1,0 +1,67 @@
+# Android
+*.iml
+.gradle
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+
+# Android Studio
+*.iml
+.idea/
+*.hprof
+*.hprof.*
+
+# Build files
+app/build/
+build/
+*.apk
+*.ap_
+*.aab
+
+# Backend
+backend/build/
+backend/.gradle/
+backend/gradle/
+backend/gradlew
+backend/gradlew.bat
+backend/*.jar
+!backend/gradle/wrapper/gradle-wrapper.jar
+
+# Logs
+*.log
+logs/
+
+# Environment variables
+.env
+.env.local
+*.properties.local
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+
+# Application specific
+application-production.yml
+application-local.yml
