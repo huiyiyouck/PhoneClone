@@ -23,9 +23,9 @@ spring:
         format_sql: true
   
   flyway:
-    enabled: true
-    locations: classpath:db/migration
-    baseline-on-migrate: true
+    enabled: false  # 禁用Flyway，表已手动创建
+    # locations: classpath:db/migration
+    # baseline-on-migrate: true
   
   security:
     jwt:

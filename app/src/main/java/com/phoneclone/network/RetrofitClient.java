@@ -12,7 +12,9 @@ import java.util.concurrent.TimeUnit;
 
 public class RetrofitClient {
     
-    private static final String BASE_URL = "https://YOUR_VERCEL_PROJECT.vercel.app/api/";
+    // 阿里云服务器地址 - 请替换为你的实际服务器IP或域名
+    // 格式：http://你的公网IP:8080/api/ 或 https://your-domain.com/api/
+    private static final String BASE_URL = "http://47.94.122.137:8080/api/";
     private static RetrofitClient instance;
     private Retrofit retrofit;
     

@@ -1,7 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.hilt)
-    alias(libs.plugins.kotlin.kapt)
 }
 
 android {
@@ -44,7 +43,7 @@ dependencies {
     
     // Room数据库
     implementation libs.room.runtime
-    kapt libs.room.compiler
+    annotationProcessor libs.room.compiler
     
     // 网络库
     implementation libs.retrofit
@@ -54,8 +53,8 @@ dependencies {
     
     // 依赖注入
     implementation libs.hilt.android
-    kapt libs.hilt.compiler
-    kapt libs.hilt.androidx.compiler
+    annotationProcessor libs.hilt.compiler
+    annotationProcessor libs.hilt.androidx.compiler
     
     // Navigation导航
     implementation libs.navigation.fragment
