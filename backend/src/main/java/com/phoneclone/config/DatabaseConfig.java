@@ -1,4 +1,3 @@
-
 package com.phoneclone.config;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -58,6 +57,7 @@ public class DatabaseConfig {
     /**
      * 格式化JDBC URL以支持IPv6地址
      * PostgreSQL IPv6地址格式: jdbc:postgresql://[::1]:5432/database
+     * 对于域名，如果只支持IPv6，会添加preferIPv6参数
      */
     private String formatJdbcUrlForIpv6(String url) {
         if (url == null || url.isEmpty()) {
@@ -95,15 +95,37 @@ public class DatabaseConfig {
         
         // 尝试解析是否为IPv6地址
         try {
-            InetAddress addr = InetAddress.getByName(host);
-            if (addr instanceof Inet6Address) {
-                // 是IPv6地址，添加方括号
-                return prefix + "[" + host + "]" + rest;
+            // 优先尝试IPv6解析
+            InetAddress[] addresses = InetAddress.getAllByName(host);
+            for (InetAddress addr : addresses) {
+                if (addr instanceof Inet6Address) {
+                    // 找到IPv6地址，使用IPv6地址替换域名
+                    String ipv6Host = "[" + addr.getHostAddress() + "]";
+                    // 检查URL是否已有参数
+                    if (rest.contains("?")) {
+                        // 已有参数，添加preferIPv6参数
+                        return prefix + ipv6Host + rest + "&preferIPv6=true";
+                    } else {
+                        // 没有参数，添加preferIPv6参数
+                        return prefix + ipv6Host + rest + "?preferIPv6=true";
+                    }
+                }
             }
         } catch (Exception e) {
-            // 解析失败，可能是主机名，保持原样
+            // 解析失败，可能是主机名，添加preferIPv6参数强制使用IPv6
+            if (rest.contains("?")) {
+                return url + "&preferIPv6=true";
+            } else {
+                return url + "?preferIPv6=true";
+            }
         }
         
-        return url;
+        // 如果解析到的是IPv4，但需要强制使用IPv6，添加参数
+        if (rest.contains("?")) {
+            return url + "&preferIPv6=true";
+        } else {
+            return url + "?preferIPv6=true";
+        }
     }
 }
+
